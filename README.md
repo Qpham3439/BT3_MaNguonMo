@@ -119,3 +119,14 @@ chạy hệ thống: ```docker-compose up -d```:
 Kiểm tra: ```docker ps```
 <img width="1852" height="197" alt="Screenshot 2026-05-11 211548" src="https://github.com/user-attachments/assets/ff0e3392-1a36-4a22-a815-270059d26d05" />
 
+Truy cập các trang hệ thống:
+
+Wordpress: 
+<img width="1897" height="1060" alt="Screenshot 2026-05-11 211728" src="https://github.com/user-attachments/assets/1ed053f2-7a87-4d0d-9508-75d0a5d72ff7" />
+
+phpMyAdmin: 
+<img width="1918" height="1078" alt="Screenshot 2026-05-11 211734" src="https://github.com/user-attachments/assets/ed2e1ab8-a7dc-42a1-bcd7-e7e0c6db92a6" />
+
+đăng nhập vào phpMyAdmin bằng tài khoản _root_, password _rootpassword_
+
+<img width="943" height="663" alt="Screenshot 2026-05-11 212214" src="https://github.com/user-attachments/assets/84fb819b-522e-4819-bc51-1914f37c9436" />
