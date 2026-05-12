@@ -130,3 +130,53 @@ phpMyAdmin:
 đăng nhập vào phpMyAdmin bằng tài khoản _root_, password _rootpassword_
 
 <img width="943" height="663" alt="Screenshot 2026-05-11 212214" src="https://github.com/user-attachments/assets/84fb819b-522e-4819-bc51-1914f37c9436" />
+
+### Bước 3: CLOUDFLARE TUNNEL (PUBLIC WEBSITE)
+
+đầu tiên, cài đặt cloudflared: 
+<img width="1918" height="708" alt="Screenshot 2026-05-12 160011" src="https://github.com/user-attachments/assets/cf421072-1165-4c10-8bc4-929cedce3477" />
+
+kiểm tra xem đã cài đặt thành công chưa:
+<img width="1915" height="363" alt="Screenshot 2026-05-12 160018" src="https://github.com/user-attachments/assets/10d95811-d9ec-4561-9f37-c9d01c6b5363" />
+
+sau khi cài xong, login cloudflare tunnel: ```cloudflared tunnel login```
+<img width="1837" height="175" alt="Screenshot 2026-05-12 160347" src="https://github.com/user-attachments/assets/5d6aee53-e280-479e-9baa-a53863fec997" />
+
+nhấn vào đường link để Authorize Cloudflare Tunnel:
+<img width="1918" height="930" alt="Screenshot 2026-05-12 160455" src="https://github.com/user-attachments/assets/e537dafe-b715-4de6-af75-1cc29410a5bf" />
+<img width="1486" height="638" alt="Screenshot 2026-05-12 160500" src="https://github.com/user-attachments/assets/e7146585-0aaa-4831-a357-46619ba6cffb" />
+
+tiếp theo, tạo tunnel: ```cloudflared tunnel create wordpress-tunnel```
+
+Config tunnel:
+```mkdir -p ~/.cloudflared```
+```nano ~/.cloudflared/config.yml```
+
+```
+tunnel: wordpress-tunnel
+credentials-file: /home/admin/.cloudflared/ID.json
+
+ingress:
+  - hostname: blog.qpham3439.io.vn
+    service: http://localhost:8080
+
+  - service: http_status:404
+```
+lệnh tạo DNS tự động: ```cloudflared tunnel route dns wordpress-tunnel blog.qpham3439.io.vn```
+
+sau đó chạy tunnel bằng lệnh: ```cloudflared tunnel run wordpress-tunnel```
+<img width="1918" height="812" alt="Screenshot 2026-05-12 161122" src="https://github.com/user-attachments/assets/18e19e83-415c-477d-840e-3b4594d90fe0" />
+
+kết quả:
+<img width="1918" height="1078" alt="Screenshot 2026-05-12 161857" src="https://github.com/user-attachments/assets/c3a288fa-94ab-4b3a-81a7-2b3dcbcbe6c7" />
+
+### Tạo bài viết trên wordpress:
+<img width="1918" height="1078" alt="Screenshot 2026-05-12 162830" src="https://github.com/user-attachments/assets/b5d6da05-a2ec-48de-b1f4-b205c330231d" />
+<img width="1918" height="1072" alt="Screenshot 2026-05-12 163259" src="https://github.com/user-attachments/assets/3e1b107d-88c9-4e29-8962-7797c6895f87" />
+<img width="1918" height="1078" alt="Screenshot 2026-05-12 163308" src="https://github.com/user-attachments/assets/87debaac-fa5f-4160-8eed-19bfb8a8934d" />
+
+## Nhận xét:
+
+WordPress là một mã nguồn mở phổ biến, dễ sử dụng và phù hợp cho việc tạo website nhanh chóng. Nhờ có giao diện quản trị trực quan và nhiều plugin hỗ trợ, người dùng không cần biết quá nhiều về lập trình vẫn có thể xây dựng website hoàn chỉnh. Khi kết hợp với Docker Compose, việc triển khai trở nên thuận tiện và dễ quản lý hơn.
+
+Tuy nhiên, WordPress tiêu tốn khá nhiều tài nguyên nếu chạy cùng database và nhiều plugin, đặc biệt về RAM và dung lượng lưu trữ. Ngoài ra, nếu cài quá nhiều plugin có thể gây chậm website hoặc lỗi xung đột. Nhìn chung, WordPress phù hợp cho học tập, blog cá nhân và các website quy mô nhỏ đến vừa.
